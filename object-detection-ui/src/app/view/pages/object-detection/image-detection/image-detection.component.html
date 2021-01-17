@@ -1,0 +1,47 @@
+<form [formGroup]="imageDetection" (ngSubmit)="submit()" clrForm>
+  <div class="clr-row clr-justify-content-start">
+    <div class="clr-col-2"></div>
+    <div class="clr-row clr-col-8">
+      <div class="clr-col-12">
+        <div class="card">
+          <div class="card-header">
+            <label for="upload-photo" class="btn btn-primary clr-col-auto">Browse...</label>
+            <input type="file"
+                   name="photo"
+                   id="upload-photo"
+                   accept="image/*"
+                   (change)="onFileChange($event)"/>
+            <button style="float: right"
+                    type="button"
+                    class="btn btn-icon btn-danger"
+                    aria-label="refresh"
+                    (click)="reset()"
+                    [disabled]="!imageSrc">
+              <clr-icon shape="refresh"></clr-icon>
+            </button>
+          </div>
+          <div class="card-block progress-block" *ngIf="imageSrc">
+            <div class="card-text">
+              <div *ngIf="!isComplete && isLoading" class="progress loop"><progress></progress></div>
+              <clr-progress-bar *ngIf="!isLoading && isComplete" clrValue="100" clrSuccess></clr-progress-bar>
+
+              <div class="clr-row">
+              <div class="clr-justify-content-start modal-dialog" *ngIf="imageSrc">
+                <img style="width: 350px" [src]="sanitize(imageSrc)">
+              </div>
+              <div class="clr-justify-content-end">
+                <span class="spinner" *ngIf="isLoading">Loading...</span>
+                <img style="width: 350px" [src]="predictionImageSrc" *ngIf="!isLoading && predictionImageSrc">
+              </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer" *ngIf="imageSrc">
+            <button class="btn btn-primary" type="submit" [disabled]="isLoading">Image Prediction</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="clr-col-1"></div>
+  </div>
+</form>
