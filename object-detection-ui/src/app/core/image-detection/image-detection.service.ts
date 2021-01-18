@@ -25,16 +25,15 @@ export class ImageDetectionService {
     private store: Store<AppState>) { }
 
     getImageDetectionOutput(id, query) {
-      this.loading.next({status: true});
       this.http.post(`${environment.restUrl}${this.imageDetection.path}`, query, {
         reportProgress: true,
         observe: 'events',
       }).subscribe((events: any) => {
-        if (events.status === 200 && events.body) {
+          if (events.status === 200 && events.body) {
             this.loading.next({status: false});
             const output: any = {id, result: events.body};
             this.store.dispatch(new GetImageDetectionResult(output));
-        }
+          }
       }, error => {
         console.log(error.message, 'error');
       });

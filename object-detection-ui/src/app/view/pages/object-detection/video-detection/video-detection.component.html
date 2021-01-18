@@ -4,14 +4,14 @@
     <div class="clr-row clr-col-8">
       <div class="clr-col-12">
         <div class="card">
-          <div class="card-block progress-block">
+          <div class="card-block">
             <div class="card-text">
-              <div class="progress loop"><progress></progress></div>
-              <div class="clr-row">
-                <div class="clr-justify-content-start modal-dialog">
+              <div class="progress loop" *ngIf="isLoading"><progress></progress></div>
+              <div class="clr-row clr-col-12">
+                <div class="clr-col-6 text-center">
                   <video autoplay playsinline muted id="webcam" width="300" height="300" #video></video>
                 </div>
-                <div class="clr-justify-content-end">
+                <div class="clr-col-6 text-center">
                   <video autoplay playsinline muted id="webcamPrediction" width="300" height="300" #videoPrediction></video>
                 </div>
               </div>

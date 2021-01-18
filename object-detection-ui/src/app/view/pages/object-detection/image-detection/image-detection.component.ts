@@ -49,9 +49,6 @@ export class ImageDetectionComponent implements OnInit {
   }
 
   onFileChange(event) {
-    this.predictionImageSrc = '';
-    this.isComplete = false;
-    this.isLoading = false;
     const reader: any = new FileReader();
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
@@ -75,16 +72,13 @@ export class ImageDetectionComponent implements OnInit {
   }
 
   reset() {
-    this.imageSrc = '';
+    console.log('todo work');
   }
 
   submit(){
     this.isLoading = true;
     this.isComplete = false;
-
-    setTimeout(() => {
-      this.imageDetectionService.getImageDetectionOutput('id', this.imageDetection.value.fileSource);
-    }, 3000);
+    this.imageDetectionService.getImageDetectionOutput('id', this.imageDetection.value.fileSource);
   }
 
 }

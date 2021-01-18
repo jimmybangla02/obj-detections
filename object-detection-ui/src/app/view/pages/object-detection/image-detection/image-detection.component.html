@@ -20,18 +20,18 @@
               <clr-icon shape="refresh"></clr-icon>
             </button>
           </div>
-          <div class="card-block progress-block" *ngIf="imageSrc">
+          <div class="card-block" *ngIf="imageSrc">
             <div class="card-text">
               <div *ngIf="!isComplete && isLoading" class="progress loop"><progress></progress></div>
               <clr-progress-bar *ngIf="!isLoading && isComplete" clrValue="100" clrSuccess></clr-progress-bar>
 
-              <div class="clr-row">
-              <div class="clr-justify-content-start modal-dialog" *ngIf="imageSrc">
-                <img style="width: 350px" [src]="sanitize(imageSrc)">
+              <div class="clr-row clr-col-12">
+              <div class="clr-col-6 text-center" *ngIf="imageSrc">
+                <img style="width: 300px" [src]="sanitize(imageSrc)">
               </div>
-              <div class="clr-justify-content-end">
+              <div class="clr-col-6 text-center">
                 <span class="spinner" *ngIf="isLoading">Loading...</span>
-                <img style="width: 350px" [src]="predictionImageSrc" *ngIf="!isLoading && predictionImageSrc">
+                <img style="width: 300px" [src]="predictionImageSrc" *ngIf="!isLoading && predictionImageSrc">
               </div>
               </div>
             </div>

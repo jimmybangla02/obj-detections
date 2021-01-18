@@ -14,17 +14,23 @@ class ObjectDetectionHandler {
                 return tf.node.getMetaGraphsFromSavedModel(model_path);
             })
             .then(modelInfo => {
-                // console.log(modelInfo);
 
+                // static image
                 const inputImage = path.resolve(__dirname, '../../../../object_detection/image.jpeg');
                 image = require('fs').readFileSync(inputImage);
                 const uint8array = new Uint8Array(image);
 
-                const arrayBuffer = new Uint8Array(request.payload.split(',')[1]);
-                console.log('arrayBuffer', arrayBuffer)
+                // convert to binary
+                // dynamic image
+                const binaryString = Buffer.from(request.payload.split(',')[1], 'base64').toString('binary')
+                const len = binaryString.length;
+                const bytes = new Uint8Array(len);
+                for (let i = 0; i < len; i++) {
+                    bytes[i] = binaryString.charCodeAt(i);
+                }
 
-                // Decode the image into a tensor.
-                return tf.node.decodeImage(uint8array);
+                // return tf.node.decodeImage(uint8array);
+                return tf.node.decodeImage(bytes);
             })
             .then(imageTensor => {
                 const input = imageTensor.expandDims(0);
