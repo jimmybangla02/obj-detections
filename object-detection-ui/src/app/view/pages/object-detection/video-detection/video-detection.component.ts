@@ -18,7 +18,7 @@ export class VideoDetectionComponent implements OnInit, AfterViewInit {
   isLoading: boolean;
   isComplete: boolean;
   videoSrc: string;
-  predictionImageSrc: string;
+  predictionVideoSrc: string;
   predictions: any = [];
 
   buttonText = 'Start Prediction';
@@ -61,7 +61,7 @@ export class VideoDetectionComponent implements OnInit, AfterViewInit {
 
     this.store.pipe(select(getObjectPredictionPath())).subscribe((prediction: any) => {
       if (prediction) {
-        this.predictionImageSrc = prediction;
+        this.predictionVideoSrc = prediction;
       }
     });
   }
