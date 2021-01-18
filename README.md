@@ -21,4 +21,4 @@
     - Clarity Design System
   ##### Build Script (Terminal)
     - cd object-detection-ui
-    - pm run start:proxy
+    - npm run start:proxy
