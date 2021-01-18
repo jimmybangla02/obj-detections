@@ -1,12 +1,12 @@
 import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {ImageDetectionService} from '../../../../core/image-detection/image-detection.service';
+import {ObjectDetectionService} from '../../../../core/object-detection/object-detection.service';
 import {WebcamImage, WebcamInitError, WebcamUtil} from 'ngx-webcam';
 import {Observable, Subject} from 'rxjs';
 import {DomSanitizer} from '@angular/platform-browser';
-import {select, Store} from "@ngrx/store";
-import {getImagePredictionPath} from "../../../../core/image-detection/image-detection.selector";
-import {AppState} from "../../../../core/store/app.store";
+import {select, Store} from '@ngrx/store';
+import {getObjectPredictionPath} from '../../../../core/object-detection/object-detection.selector';
+import {AppState} from '../../../../core/store/app.store';
 
 @Component({
   selector: 'app-video-detection',
@@ -51,7 +51,7 @@ export class VideoDetectionComponent implements OnInit, AfterViewInit {
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
-  constructor(private imageDetectionService: ImageDetectionService, private store: Store<AppState>, private sanitizer: DomSanitizer) { }
+  constructor(private objectDetectionService: ObjectDetectionService, private store: Store<AppState>, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     WebcamUtil.getAvailableVideoInputs()
@@ -59,7 +59,7 @@ export class VideoDetectionComponent implements OnInit, AfterViewInit {
         this.multipleWebcamsAvailable = mediaDevices && mediaDevices.length > 1;
       });
 
-    this.store.pipe(select(getImagePredictionPath())).subscribe((prediction: any) => {
+    this.store.pipe(select(getObjectPredictionPath())).subscribe((prediction: any) => {
       if (prediction) {
         this.predictionImageSrc = prediction;
       }
@@ -121,7 +121,7 @@ export class VideoDetectionComponent implements OnInit, AfterViewInit {
 
   public handleImage(webcamImage: WebcamImage): void {
     this.webcamImage = webcamImage;
-    this.imageDetectionService.getImageDetectionOutput('id', this.webcamImage.imageAsDataUrl);
+    this.objectDetectionService.getImageDetectionOutput('id', this.webcamImage.imageAsDataUrl);
     console.log(this.webcamImage, 'predictionVideoSrc');
   }
 

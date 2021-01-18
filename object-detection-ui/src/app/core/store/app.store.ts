@@ -1,15 +1,15 @@
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { storageSyncMetaReducer } from 'ngrx-store-persist';
-import {ImageDetectionState} from '../image-detection/image-detection.store';
-import {imageDetectionReducer} from '../image-detection/image-detection.reducer';
+import {ObjectDetectionState} from '../object-detection/object-detection.store';
+import {objectDetectionReducer} from '../object-detection/object-detection.reducer';
 
 export interface AppState {
-  ImageDetection?: ImageDetectionState;
+  ImageDetection?: ObjectDetectionState;
 }
 
 export const appReducer: ActionReducerMap<any> = {
-  ImageDetection: imageDetectionReducer
+  ImageDetection: objectDetectionReducer
 };
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

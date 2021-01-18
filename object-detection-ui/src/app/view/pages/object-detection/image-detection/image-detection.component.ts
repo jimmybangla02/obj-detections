@@ -1,10 +1,10 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {ImageDetectionService} from '../../../../core/image-detection/image-detection.service';
+import {ObjectDetectionService} from '../../../../core/object-detection/object-detection.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DomSanitizer} from '@angular/platform-browser';
 import {
-  getImagePredictionPath
-} from '../../../../core/image-detection/image-detection.selector';
+  getObjectPredictionPath
+} from '../../../../core/object-detection/object-detection.selector';
 import {select, Store} from '@ngrx/store';
 import {AppState} from '../../../../core/store/app.store';
 
@@ -32,17 +32,17 @@ export class ImageDetectionComponent implements OnInit {
     blobUrl: new FormControl('', [Validators.required]),
   });
 
-  constructor(private imageDetectionService: ImageDetectionService,
+  constructor(private objectDetectionService: ObjectDetectionService,
               private sanitizer: DomSanitizer, private store: Store<AppState>) {}
 
 
   public async ngOnInit(): Promise<void> {
-    this.imageDetectionService.loading.subscribe((status: any) => {
+    this.objectDetectionService.loading.subscribe((status: any) => {
       this.isLoading = status.loading;
       this.isComplete = !status.loading;
     });
 
-    this.store.pipe(select(getImagePredictionPath())).subscribe((prediction: any) => {
+    this.store.pipe(select(getObjectPredictionPath())).subscribe((prediction: any) => {
       if (prediction) {
         this.predictionImageSrc = prediction;
       }
@@ -79,7 +79,7 @@ export class ImageDetectionComponent implements OnInit {
   submit(){
         this.isLoading = true;
         this.isComplete = false;
-        this.imageDetectionService.getImageDetectionOutput('id', this.imageDetection.value.fileSource);
+        this.objectDetectionService.getImageDetectionOutput('id', this.imageDetection.value.fileSource);
   }
 
 }

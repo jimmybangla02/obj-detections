@@ -51,7 +51,7 @@ class ObjectDetectionHandler {
                 const detectedBoxes = [];
                 const detectedNames = [];
                 for (let i = 0; i < scores[0].length; i++) {
-                    if (scores[0][i] > 0.3) {
+                    if (scores[0][i] > 0.7) {
                         detectedBoxes.push(boxes[0][i]);
                         detectedNames.push(labels[names[0][i]]);
                     }
