@@ -6,7 +6,7 @@
   "license": "Apache-2.0",
   "private": true,
   "scripts": {
-    "start:server": "./node_modules/nodemon/bin/nodemon.js server.js",
+    "start:server": "nodemon server.js",
     "start:example": "cd object_detection && node index"
   },
   "peerDependencies": {

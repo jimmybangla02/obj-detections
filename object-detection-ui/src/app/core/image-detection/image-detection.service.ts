@@ -27,7 +27,7 @@ export class ImageDetectionService {
     getImageDetectionOutput(id, query) {
       this.http.post(`${environment.restUrl}${this.imageDetection.path}`, query, {
         reportProgress: true,
-        observe: 'events',
+        observe: 'events'
       }).subscribe((events: any) => {
           if (events.status === 200 && events.body) {
             this.loading.next({status: false});

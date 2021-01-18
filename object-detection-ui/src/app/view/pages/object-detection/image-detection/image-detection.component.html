@@ -27,17 +27,17 @@
 
               <div class="clr-row clr-col-12">
               <div class="clr-col-6 text-center" *ngIf="imageSrc">
-                <img style="width: 300px" [src]="sanitize(imageSrc)">
+                <img style="min-width: 300px; max-width: 300px" [src]="sanitize(imageSrc)">
               </div>
               <div class="clr-col-6 text-center">
                 <span class="spinner" *ngIf="isLoading">Loading...</span>
-                <img style="width: 300px" [src]="predictionImageSrc" *ngIf="!isLoading && predictionImageSrc">
+                <img style="min-width: 300px; max-width: 300px" [src]="sanitize(predictionImageSrc)" *ngIf="!isLoading && predictionImageSrc">
               </div>
               </div>
             </div>
           </div>
           <div class="card-footer" *ngIf="imageSrc">
-            <button class="btn btn-primary" type="submit" [disabled]="isLoading">Image Prediction</button>
+            <button class="btn btn-primary" type="submit" [disabled]="isLoading">Start Prediction</button>
           </div>
         </div>
       </div>

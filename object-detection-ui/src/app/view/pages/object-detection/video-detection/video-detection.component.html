@@ -9,16 +9,30 @@
               <div class="progress loop" *ngIf="isLoading"><progress></progress></div>
               <div class="clr-row clr-col-12">
                 <div class="clr-col-6 text-center">
-                  <video autoplay playsinline muted id="webcam" width="300" height="300" #video></video>
+                  <!--<video autoplay playsinline muted id="webcam" name="video" width="300" height="300" #video></video>-->
+                  <webcam [height]="400" [width]="800"
+                          [trigger]="triggerObservable"
+                          (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+                          [allowCameraSwitch]="allowCameraSwitch"
+                          [switchCamera]="nextWebcamObservable"
+                          [videoOptions]="videoOptions"
+                          [imageQuality]="1"
+                          (cameraSwitched)="cameraWasSwitched($event)"
+                          (initError)="handleInitError($event)">
+                  </webcam>
                 </div>
+
                 <div class="clr-col-6 text-center">
-                  <video autoplay playsinline muted id="webcamPrediction" width="300" height="300" #videoPrediction></video>
+                  <img style="min-width: 300px; max-width: 300px" [src]="sanitize(predictionImageSrc)" *ngIf="predictionImageSrc">
                 </div>
+
               </div>
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn btn-primary" type="submit">Video Prediction</button>
+            <button class="btn"
+                    [ngClass]="{'btn-primary': buttonText !== 'Stop Prediction', 'btn-danger': buttonText === 'Stop Prediction'}"
+                    type="submit">{{buttonText}}</button>
           </div>
         </div>
       </div>
@@ -26,3 +40,9 @@
     <div class="clr-col-1"></div>
   </div>
 </form>
+
+
+<tr  *ngFor="let prediction of predictions">
+<!--  <td>{{prediction.className}}</td>-->
+<!--  <td>{{prediction.probability}}</td>-->
+</tr>

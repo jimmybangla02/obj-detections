@@ -5,6 +5,7 @@ const model_path = path.resolve(__dirname, '../../../../object_detection/model/n
 const labels = require('../../../../object_detection/model/new_object_detection_1/assets/labels.json');
 const { createCanvas, Image } = require('canvas');
 
+
 class ObjectDetectionHandler {
     static getObjects(request, reply) {
         tf.node.loadSavedModel(model_path, ['serve'], 'serving_default')
@@ -14,15 +15,14 @@ class ObjectDetectionHandler {
                 return tf.node.getMetaGraphsFromSavedModel(model_path);
             })
             .then(modelInfo => {
-
                 // static image
-                const inputImage = path.resolve(__dirname, '../../../../object_detection/image.jpeg');
-                image = require('fs').readFileSync(inputImage);
-                const uint8array = new Uint8Array(image);
+                // const inputImage = path.resolve(__dirname, '../../../../object_detection/image.jpeg');
+                // image = require('fs').readFileSync(inputImage);
+                image = Buffer.from(request.payload.split(',')[1], 'base64');
+                // const uint8array = new Uint8Array(image);
 
-                // convert to binary
                 // dynamic image
-                const binaryString = Buffer.from(request.payload.split(',')[1], 'base64').toString('binary')
+                const binaryString = Buffer.from(request.payload.split(',')[1], 'base64').toString('binary');
                 const len = binaryString.length;
                 const bytes = new Uint8Array(len);
                 for (let i = 0; i < len; i++) {
@@ -97,14 +97,14 @@ class ObjectDetectionHandler {
 
 
                     // Disable 2x2 chromaSubsampling for deeper colors and use a higher quality
-                    const stream = canvas.createJPEGStream({
-                        quality: 0.95,
-                        chromaSubsampling: false
-                    });
-                    const outputImage = path.resolve(__dirname, '../../../../object_detection/image_test.jpeg');
-                    const out =  require('fs').createWriteStream(outputImage)
-                    stream.pipe(out)
-                    out.on('finish', () =>  console.log('The JPEG file was created.'))
+                    // const stream = canvas.createJPEGStream({
+                    //     quality: 0.95,
+                    //     chromaSubsampling: false
+                    // });
+                    // const outputImage = path.resolve(__dirname, '../../../../object_detection/image_test.jpeg');
+                    // const out =  require('fs').createWriteStream(outputImage)
+                    // stream.pipe(out)
+                    // out.on('finish', () =>  console.log('The JPEG file was created.'))
 
                 }
                 img.onerror = err => { throw err }

@@ -28,7 +28,8 @@ export class ImageDetectionComponent implements OnInit {
   imageDetection = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
-    fileSource: new FormControl('', [Validators.required])
+    fileSource: new FormControl('', [Validators.required]),
+    blobUrl: new FormControl('', [Validators.required]),
   });
 
   constructor(private imageDetectionService: ImageDetectionService,
@@ -76,9 +77,9 @@ export class ImageDetectionComponent implements OnInit {
   }
 
   submit(){
-    this.isLoading = true;
-    this.isComplete = false;
-    this.imageDetectionService.getImageDetectionOutput('id', this.imageDetection.value.fileSource);
+        this.isLoading = true;
+        this.isComplete = false;
+        this.imageDetectionService.getImageDetectionOutput('id', this.imageDetection.value.fileSource);
   }
 
 }
